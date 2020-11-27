@@ -1,6 +1,9 @@
 const http = require('http');
+const emitter = require('./event');
 
 let server = http.createServer((req, res) => {
-    res.write('Application Base');
-    res.end();
+    switch(req.url){
+        case '/api/list':
+            emitter.emit('callReadFile', res);
+    }
 }).listen(8080);
