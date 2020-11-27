@@ -1,0 +1,20 @@
+{
+  "name": "calendar_server",
+  "version": "1.0.0",
+  "description": "Server Side for calendar module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datomegasherly/calendar_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/datomegasherly/calendar_server/issues"
+  },
+  "homepage": "https://github.com/datomegasherly/calendar_server#readme"
+}
