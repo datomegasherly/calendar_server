@@ -9,11 +9,24 @@ class Emitter extends EventEmitter {
     callEvents(){
         this.on('callReadFile', res => {
             fs.readFile('data.json', (err, data) => {
-                if(err) console.log(err);
+                if(err) throw err;
                 else {
-                    res.write(data);
+                    data = JSON.parse(data);
+                    res.json(data);
                 }
-                res.end();
+            });
+        });
+        this.on('callCreateFile', (res, q) => {
+            fs.readFile('data.json', (err, data) => {
+                let parseData = JSON.parse(data);
+                if(!parseData[q.full]){
+                    parseData[q.full] = [];
+                }
+                parseData[q.full].push(q);
+                fs.writeFile('data.json', JSON.stringify(parseData), err => {
+                    if(err) res.json({success: false});
+                    else res.json({success: true});
+                });
             });
         });
     }
