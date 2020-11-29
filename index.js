@@ -8,11 +8,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(bodyParser.json());
 
-app.get('/api/list', (req, res) => {
+app.get('/api/calendar', (req, res) => {
     emitter.emit('callReadFile', res);
 });
 
-app.post('/api/create', (req, res) => {
+app.post('/api/calendar', (req, res) => {
     let data = req.body;
     data.start_time = JSON.parse(data.start_time);
     data.end_time = JSON.parse(data.end_time);
