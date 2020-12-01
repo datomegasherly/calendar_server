@@ -42,20 +42,47 @@ class CalendarEmitter extends EventEmitter {
             return;
         }
         fs.readFile('data.json', (err, data) => {
+            if(err) res.json({error: 'Error loading data'});
             let parseData = JSON.parse(data);
             if(!parseData[q.full]){
                 parseData[q.full] = [];
             }
             parseData[q.full].push(q);
             fs.writeFile('data.json', JSON.stringify(parseData), err => {
-                if(err) res.json({success: false});
+                if(err) res.json({error: 'Error writing data'});
                 else res.json({success: true});
             });
+        });
+    }
+    write(res, q){
+        const checkValidate = this.validate(q);
+        if(checkValidate.error){
+            res.json({error: checkValidate.error.details[0].message});
+            return;
+        }
+        fs.readFile('data.json', (err, data) => {
+            if(err) res.json({error: 'Error loading data'});
+            let parseData = JSON.parse(data);
+            if(!parseData[q.full]) res.json({error: 'This event is not exist'});
+            else {
+                parseData[q.full].map(c => {
+                    if(c.id == q.id){
+                        c.event = q.event;
+                        c.start_time = q.start_time;
+                        c.end_time = q.end_time;
+                    }
+                });
+                fs.writeFile('data.json', JSON.stringify(parseData), err => {
+                    if(err) res.json({error: 'Error writing data'});
+                    else res.json({success: true});
+                });
+            }
         });
     }
     callEvents(){
         this.on('callReadFile', res => this.read(res));
         this.on('callCreateFile', (res, q) => this.create(res, q));
+        this.on('callEditFile', (res, q) => this.write(res, q));
     }
 }
 
