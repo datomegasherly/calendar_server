@@ -20,4 +20,9 @@ router.put('/', (req, res) => {
     calendarEmitter.emit('callEditFile', res, data);
 });
 
+router.delete('/:full/:id', (req, res) => {
+    let data = req.params;
+    calendarEmitter.emit('callDeleteFile', res, data);
+})
+
 module.exports = router;
