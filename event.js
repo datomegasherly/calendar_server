@@ -27,6 +27,10 @@ class CalendarEmitter extends EventEmitter {
         });
         return schema.validate(q);
     }
+    config(res){
+        let date = new Date();
+        res.json({date});
+    }
     read(res){
         fs.readFile('data.json', (err, data) => {
             if(err) throw err;
@@ -103,6 +107,7 @@ class CalendarEmitter extends EventEmitter {
         this.on('callCreateFile', (res, q) => this.create(res, q));
         this.on('callEditFile', (res, q) => this.write(res, q));
         this.on('callDeleteFile', (res, q) => this.delete(res, q));
+        this.on('callConfig', res => this.config(res));
     }
 }
 
