@@ -1,28 +1,12 @@
-const { calendarEmitter } = require('../event');
+const { get, create, update, remove } = require('../dbEvent');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    calendarEmitter.emit('callReadFile', res);
-});
+router.get('/:year/:month', (req, res) => get(req, res));
+router.get('/:year/:month/:startDay/:endDay', (req, res) => get(req, res));
 
-router.post('/', (req, res) => {
-    let data = req.body;
-    data.start_time = JSON.parse(data.start_time);
-    data.end_time = JSON.parse(data.end_time);
-    calendarEmitter.emit('callCreateFile', res, data);
-});
-
-router.put('/', (req, res) => {
-    let data = req.body;
-    data.start_time = JSON.parse(data.start_time);
-    data.end_time = JSON.parse(data.end_time);
-    calendarEmitter.emit('callEditFile', res, data);
-});
-
-router.delete('/:full/:id', (req, res) => {
-    let data = req.params;
-    calendarEmitter.emit('callDeleteFile', res, data);
-})
+router.post('/', (req, res) => create(req, res));
+router.put('/', (req, res) => update(req, res));
+router.delete('/:full/:id', (req, res) => remove(req, res));
 
 module.exports = router;

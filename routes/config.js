@@ -1,9 +1,9 @@
-const { calendarEmitter } = require('../event');
 const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    calendarEmitter.emit('callConfig', res);
+    let date = new Date();
+    res.json({date});
 });
 
 module.exports = router;
