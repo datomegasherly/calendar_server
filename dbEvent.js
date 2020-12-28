@@ -16,7 +16,8 @@ const validate = (q) => {
         end_time: Joi.object({
             hour: Joi.number().min(0).max(23).required(),
             minute: Joi.number().min(0).max(59).required()
-        })
+        }),
+        color: Joi.string().min(1).max(31).required(),
     });
     return schema.validate(q);
 }
