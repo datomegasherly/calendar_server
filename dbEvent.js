@@ -18,7 +18,8 @@ const validate = (q) => {
             minute: Joi.number().min(0).max(59).required()
         }),
         color: Joi.string().min(1).max(31).required(),
-        category: Joi.number().min(1).max(31).required(),
+        category: Joi.number().min(1).max(50).required(),
+        status: Joi.number().min(1).max(10).required(),
     });
     return schema.validate(q);
 }
