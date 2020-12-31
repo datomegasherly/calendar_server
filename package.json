@@ -1,6 +1,6 @@
 {
   "name": "calendar_server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Server Side for calendar module",
   "main": "index.js",
   "scripts": {
